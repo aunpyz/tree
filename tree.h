@@ -1,5 +1,6 @@
 #include <queue>
 #include <stack>
+#include <iomanip>
 
 using namespace std;
 
@@ -13,12 +14,14 @@ class Node
 {
     public:
         Node() { left=right=NULL; }
-        Node(const T& el, Node *l=0, Node *r=0)
+        Node(const T& el, int ln=0, Node *l=0, Node *r=0)
         {
             key=el; left=l; right=r;
+            line = ln;
         }
         T key;
         Node *left, *right;
+        int line;
 };
 
 template<class T>
@@ -30,7 +33,7 @@ class Tree
         void clear() { clear(root); root = 0; }
         bool isEmpty() { return root == 0; }
         void inorder() { inorder(root); }
-        void insert(const T& el);
+        void insert(const T& el, int ln);
         void deleteNode(Node<T> *& node);
 
     protected:
@@ -54,19 +57,19 @@ template<class T>
 void Tree<T>::inorder(Node<T> *p)
 {
 	//TO DO! This is for an inorder tree traversal!
-/*
     if(p != NULL)
     {
         inorder(p->left);
-        cout << p->key << endl;
+        //cout << p->key << endl;
+        cout<<setw(15)<<p->key <<setw(10)<< p->line<<endl;
         inorder(p->right);
 
     }
-*/
 }
 
 template<class T>
-void Tree<T>::insert(const T &el)
+// int ln refers to line number(s)
+void Tree<T>::insert(const T &el, int ln)
 {
 	Node<T> *p = root, *prev = 0;
 	while(p != 0)
@@ -75,10 +78,10 @@ void Tree<T>::insert(const T &el)
 		if(p->key < el) p=p->right;
 		else p=p->left;
 	}
-	if(root == 0) root = new Node<T>(el);
-	else if(prev->key<el) prev->right = new Node<T>(el);
+	if(root == 0) root = new Node<T>(el,ln);
+	else if(prev->key<el) prev->right = new Node<T>(el, ln);
 	else
-		prev->left = new Node<T>(el);
+		prev->left = new Node<T>(el, ln);
 }
 
 template<class T>
