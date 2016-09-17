@@ -39,6 +39,11 @@ class Tree
         void deleteNode(Node<T> *& node);
         //print all nodes in a specific line
         T lineNode(int ln);
+        //get list size
+        int getListSize()
+        {
+            return lineList.size();
+        }
     protected:
         Node<T> *root;
         vector<T> lineList;

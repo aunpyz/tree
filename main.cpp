@@ -38,16 +38,17 @@ int main()
 	file.close();
 	cout<<setw(20)<<"Index"<<endl;
     mytree.inorder();
-    cout<<"Which line you wanna see?: ";
     try
     {
+        cout<<"Enter the line number: ";
         cin>>ln;
-        if(typeid(ln) != typeid(int))
+        if(ln >= 1 && ln <= mytree.getListSize() )
+            //find nodes in a list (based on line input)
+            cout<<mytree.lineNode(ln-1);
+        else if(ln == -1)
+            return 0;
+        else
             throw invalid_argument("");
-        if(ln < 1)
-            throw invalid_argument("");
-        //find nodes in a list (based on line input)
-        cout<<mytree.lineNode(ln-1);
     }
     catch(const invalid_argument& e)
     {
