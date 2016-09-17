@@ -1,6 +1,7 @@
 #include <queue>
 #include <stack>
 #include <iomanip>
+#include <vector>
 
 using namespace std;
 
@@ -34,10 +35,13 @@ class Tree
         bool isEmpty() { return root == 0; }
         void inorder() { inorder(root); }
         void insert(const T& el, int ln);
+        void addLine(const T& ln);
         void deleteNode(Node<T> *& node);
-
+        //print all nodes in a specific line
+        T lineNode(int ln);
     protected:
         Node<T> *root;
+        vector<T> lineList;
         void clear(Node<T> *p);
         void inorder(Node<T> *p);
 };
@@ -63,7 +67,6 @@ void Tree<T>::inorder(Node<T> *p)
         //cout << p->key << endl;
         cout<<setw(15)<<p->key <<setw(10)<< p->line<<endl;
         inorder(p->right);
-
     }
 }
 
@@ -104,6 +107,19 @@ void Tree<T>::deleteNode(Node<T> *&node)
 		else prev->right = tmp->left;
 	}
 	delete tmp;
+}
+
+//breadth first search **stack **queue
+template<class T>
+void Tree<T>::addLine(const T& ln)
+{
+    lineList.push_back(ln);
+}
+
+template<class T>
+T Tree<T>::lineNode(int ln)
+{
+    return lineList.at(ln);
 }
 
 #endif // Binary_Search_Tree
